@@ -7,7 +7,8 @@ namespace Monogame_5___Add_an_Intro_Screen
     enum Screen
     {
         Intro,
-        TribbleYard
+        TribbleYard,
+        End
     }
 
     public class Game1 : Game
@@ -17,7 +18,7 @@ namespace Monogame_5___Add_an_Intro_Screen
 
         Screen screen;
         MouseState mouseState;
-        Texture2D greyTexture, creamTexture, orangeTexture, brownTexture, backgroundTexture;
+        Texture2D greyTexture, creamTexture, orangeTexture, brownTexture, backgroundTexture, endTexture;
         Rectangle greyTribRect, creamTribRect, orangeTribRect, brownTribRect, bgRect;
         Vector2 greySpeed, creamSpeed, orangeSpeed, brownSpeed;
         public Game1()
@@ -59,6 +60,7 @@ namespace Monogame_5___Add_an_Intro_Screen
             orangeTexture = Content.Load<Texture2D>("tribbleOrange");
             brownTexture = Content.Load<Texture2D>("tribbleBrown");
             backgroundTexture = Content.Load<Texture2D>("background");
+            endTexture = Content.Load<Texture2D>("pompom");
         }
 
         protected override void Update(GameTime gameTime)
@@ -136,7 +138,6 @@ namespace Monogame_5___Add_an_Intro_Screen
             }
             else if (screen == Screen.TribbleYard)
             {
-                _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
                 _spriteBatch.Draw(greyTexture, greyTribRect, Color.White);
                 _spriteBatch.Draw(creamTexture, creamTribRect, Color.White);
                 _spriteBatch.Draw(orangeTexture, orangeTribRect, Color.White);
