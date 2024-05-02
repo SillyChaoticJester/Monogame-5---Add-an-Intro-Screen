@@ -18,9 +18,10 @@ namespace Monogame_5___Add_an_Intro_Screen
 
         Screen screen;
         MouseState mouseState;
-        Texture2D greyTexture, creamTexture, orangeTexture, brownTexture, backgroundTexture, endTexture;
+        Texture2D greyTexture, creamTexture, orangeTexture, brownTexture, backgroundTexture, tribbleTexture, endTexture;
         Rectangle greyTribRect, creamTribRect, orangeTribRect, brownTribRect, bgRect;
         Vector2 greySpeed, creamSpeed, orangeSpeed, brownSpeed;
+        SpriteFont textFont;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -47,6 +48,7 @@ namespace Monogame_5___Add_an_Intro_Screen
             brownSpeed = new Vector2(4, 5);
             bgRect = new Rectangle(0, 0, 800, 500);
 
+
             base.Initialize();
         }
 
@@ -60,7 +62,9 @@ namespace Monogame_5___Add_an_Intro_Screen
             orangeTexture = Content.Load<Texture2D>("tribbleOrange");
             brownTexture = Content.Load<Texture2D>("tribbleBrown");
             backgroundTexture = Content.Load<Texture2D>("background");
-            endTexture = Content.Load<Texture2D>("pompom");
+            tribbleTexture = Content.Load<Texture2D>("pompom");
+            endTexture = Content.Load<Texture2D>("fiery landscape");
+            textFont = Content.Load<SpriteFont>("help");
         }
 
         protected override void Update(GameTime gameTime)
@@ -80,6 +84,9 @@ namespace Monogame_5___Add_an_Intro_Screen
             }
             else if (screen == Screen.TribbleYard)
             {
+                if (mouseState.RightButton == ButtonState.Pressed)
+                    screen = Screen.End;
+                   
                 greyTribRect.X += (int)greySpeed.X;
                 greyTribRect.Y += (int)greySpeed.Y;
 
@@ -120,7 +127,13 @@ namespace Monogame_5___Add_an_Intro_Screen
                     brownSpeed.Y *= -1;
                 }
             }
+            else if (screen == Screen.End) 
+            {
 
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                    Exit();
+
+            }
             base.Update(gameTime);
         }
 
@@ -135,15 +148,23 @@ namespace Monogame_5___Add_an_Intro_Screen
             if (screen == Screen.Intro)
             {
                 _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
+                _spriteBatch.DrawString(textFont, "Left Click to Continue", new Vector2(250, 400), Color.White);
             }
             else if (screen == Screen.TribbleYard)
             {
+                _spriteBatch.Draw(tribbleTexture, bgRect, Color.White);
                 _spriteBatch.Draw(greyTexture, greyTribRect, Color.White);
                 _spriteBatch.Draw(creamTexture, creamTribRect, Color.White);
                 _spriteBatch.Draw(orangeTexture, orangeTribRect, Color.White);
                 _spriteBatch.Draw(brownTexture, brownTribRect, Color.White);
+                _spriteBatch.DrawString(textFont, "Right Click to Continue", new Vector2(10, 0), Color.White);
             }
+            else if (screen == Screen.End)
+            {
+                _spriteBatch.Draw(endTexture, bgRect, Color.White);
+                _spriteBatch.DrawString(textFont, "Left Click to End", new Vector2(550, 430), Color.White);
 
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
