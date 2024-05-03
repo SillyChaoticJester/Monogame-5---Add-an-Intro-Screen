@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -22,6 +23,8 @@ namespace Monogame_5___Add_an_Intro_Screen
         Rectangle greyTribRect, creamTribRect, orangeTribRect, brownTribRect, bgRect;
         Vector2 greySpeed, creamSpeed, orangeSpeed, brownSpeed;
         SpriteFont textFont;
+        SoundEffect duckEffect;
+        SoundEffectInstance duck;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -65,6 +68,8 @@ namespace Monogame_5___Add_an_Intro_Screen
             tribbleTexture = Content.Load<Texture2D>("pompom");
             endTexture = Content.Load<Texture2D>("fiery landscape");
             textFont = Content.Load<SpriteFont>("help");
+            duckEffect = Content.Load<SoundEffect>("duck");
+            duck = duckEffect.CreateInstance();
         }
 
         protected override void Update(GameTime gameTime)
